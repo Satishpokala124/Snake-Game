@@ -4,6 +4,7 @@ var f;
 var coorList = [];
 var score = 0;
 var element = document.getElementById('score');
+var gameOver;
 
 function setup() {
 	createCanvas(400,400);
@@ -13,7 +14,7 @@ function setup() {
 	let left,up,right,down;
 	left = createButton('left');
 	left.mousePressed(leftPress);
-	up = createButton('. '+'up'+' .');
+	up = createButton('. up .');
 	up.mousePressed(upPress);
 	right = createButton('right');
 	right.mousePressed(rightPress);
@@ -23,7 +24,7 @@ function setup() {
 	up.position(445, 175);
 	right.position(470, 200);
 	down.position(445, 225);
-	
+	gameOver = false;
 }
 
 function draw() {
@@ -62,12 +63,16 @@ function draw() {
 	for (var i=2;i<s.length;i++) {
 		if (s[0].x === s[i].x && s[0].y === s[i].y) {
 			alert('Game Over');
+			gameOver = true;
 		}
 	}
 }
 
 function keyPressed() {
-	if(keyCode === UP_ARROW){
+	if (gameOver) {
+		s[0].xvelocity = 0;
+		s[0].yvelocity = 0;	
+	} else if(keyCode === UP_ARROW){
 		if(s[0].yvelocity != 1) {
 			s[0].xvelocity = 0;
 			s[0].yvelocity = -1;
